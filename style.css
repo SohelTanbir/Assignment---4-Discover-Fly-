@@ -126,3 +126,11 @@ nav ul li a:hover, a.active{
 #minusBtn1,#minusBtn2{
     font-size:50px;
 }
+#confirm_massage{
+    width:70%;
+    margin-top:5%;
+    display:none;
+}
+#confirm_massage h2, h3{
+    text-align: center;
+}

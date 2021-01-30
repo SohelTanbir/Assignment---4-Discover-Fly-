@@ -27,8 +27,8 @@
     </header>
 
     <!--Booking Section-->
-    <main class="main-content container">
-        <div class="booking-form">
+    <main id="booking_hide" class="main-content container">
+        <div id="bookig_flights" class="booking-form">
             <h3>Booking Flights</h3>
             <div class="input-group">
                 <label for="">Flying From</label>
@@ -41,7 +41,7 @@
             <div class="inputs">
                 <div class="input-group">
                     <label" for="">Departure</label>
-                    <input class="inp-style" type="date" name="">
+                        <input class="inp-style" type="date" name="">
                 </div>
                 <div class="input-group">
                     <label for="">Return</label>
@@ -54,10 +54,10 @@
                     <input id="superTicket" class="inp-style inp-width" type="number" value="0">
                 </div>
                 <div class="plus-minus-btn">
-                    <p><span id="plusBtn1">+</span>  <span id="minusBtn1">-</span></p>
+                    <p><span id="plusBtn1">+</span> <span id="minusBtn1">-</span></p>
                 </div>
             </div>
-            
+
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy ($100)</label>
@@ -95,84 +95,128 @@
                     </div>
                 </div>
             </div>
-            <button class="btn-style">Book Now</button>
+            <button id="bookNow" class="btn-style">Book Now</button>
         </div>
 
         <div class="booking-content">
             <h1>discover <br> around the world</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise voluptatibus quam</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias
+                veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise
+                voluptatibus quam</p>
         </div>
-    </section>
+        </section>
 
+
+        <!--User Confirmation message show-->
+        <div id="confirm_massage" class="booking-form">
+            <h2 style="color:blue">Congratulations!</h2>
+            <h3>We are Accepted Your Booking Flights</h3>
+            <div class="input-group">
+                <label for="">Flying From</label>
+                <input class="inp-style" type="text" placeholder="Dhake, Bangladesh">
+            </div>
+            <div class="input-group">
+                <label for="">Flying To</label>
+                <input class="inp-style" type="text" placeholder="New York, United States">
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                        <input class="inp-style" type="text" value="29/01/2021">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="text" value="10/02/2021">
+                </div>
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p>$<span id="ConfirmSubTotal">00</span></p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p>$<span id="confirmVat">00</span></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p>$<span id="confirmPriceShow">00</span></p>
+                    </div>
+                </div>
+            </div>
+            <button id="bookNow" class="btn-style">Cancel Booking</button>
+        </div>
 
 <!--Javascript Coding-->
 <script>
-    document.getElementById("plusBtn1").addEventListener("click", function(){
-        const superTicket = document.getElementById("superTicket").value;
-        var superTicketCount = parseInt(superTicket);
-        superTicketCount++;
-        document.getElementById("superTicket").value = superTicketCount;
-        calculateSubTotal();
-        totalPriceWithVat();
-    });
-    document.getElementById("minusBtn1").addEventListener("click", function(){
-        const superTicket = document.getElementById("superTicket").value;
-        var superTicketCount = parseInt(superTicket);
-        if(superTicketCount > 0){
-            superTicketCount--;
-            document.getElementById("superTicket").value = superTicketCount;
-        }
-        calculateSubTotal();
-        totalPriceWithVat();
-    });
+            // this method call others two method and detect which button(plus or minus) are click users
+            function selectBtn(clickBtn, TicketId, TicketIncreaseDecrease) {
+                document.getElementById(clickBtn).addEventListener("click", function () {
+                    increaseTicket(TicketId, TicketIncreaseDecrease);
+                    calculateSubTotal();
+                    totalPriceWithVat();
+                });
+            }
+            selectBtn("plusBtn1", 'superTicket', true);
+            selectBtn("minusBtn1", 'superTicket', false);
+            selectBtn("plusBtn2", 'economyTicket', true);
+            selectBtn("minusBtn2", 'economyTicket', false);
 
-    document.getElementById("plusBtn2").addEventListener("click", function(){
-        const economyTicket = document.getElementById("economyTicket").value;
-        var economyTicketCount = parseInt(economyTicket);
-            economyTicketCount++;
-            document.getElementById("economyTicket").value = economyTicketCount;
-            calculateSubTotal();
-            totalPriceWithVat();
-    })
-    document.getElementById("minusBtn2").addEventListener("click", function(){
-        const economyTicket = document.getElementById("economyTicket").value;
-        var economyTicketCount = parseInt(economyTicket);
-        if(economyTicketCount > 0){
-            economyTicketCount--;
-            document.getElementById("economyTicket").value = economyTicketCount;
-        }
-        calculateSubTotal();
-        totalPriceWithVat();
-    });
-
-    function calculateSubTotal(){
-        const superTicket = document.getElementById("superTicket").value;
-        var superTicketCount = parseInt(superTicket);
-        var superTicketPrice = superTicketCount * 150;
-
-        const economyTicket = document.getElementById("economyTicket").value;
-        var economyTicketCount = parseInt(economyTicket);
-        var economyTicketPrice = economyTicketCount * 100;
-        var subTotalPrice = superTicketPrice + economyTicketPrice;
-        document.getElementById("subTotalPrice").innerText = subTotalPrice;
-
-    }
-
-    function totalPriceWithVat(){
-        const superTicket = document.getElementById("superTicket").value;
-        var superTicketCount = parseInt(superTicket);
-        var superTicketPrice = superTicketCount * 150;
-
-        const economyTicket = document.getElementById("economyTicket").value;
-        var economyTicketCount = parseInt(economyTicket);
-        var economyTicketPrice = economyTicketCount * 100;
-        var subTotalPrice = superTicketPrice + economyTicketPrice;
-        var vat = subTotalPrice * 10 /100;
-        document.getElementById("vat").innerText = vat;
-        var TotalPrice = superTicketPrice + economyTicketPrice + vat;
-        document.getElementById("totalPrice").innerText = TotalPrice;
-    }
-
+            // this method detect Ticket value will be increase or decrease
+            function increaseTicket(id, increase) {
+                const Ticket = document.getElementById(id).value;
+                var TicketCount = parseInt(Ticket);
+                if (increase == true) {
+                    TicketCount++;
+                    document.getElementById(id).value = TicketCount;
+                } else {
+                    if (TicketCount > 0) {
+                        TicketCount--;
+                        document.getElementById(id).value = TicketCount;
+                    }
+                }
+            }
+            // this method calculate subTotal price and pass subTotal value in totalPriceWithVat method
+            function calculateSubTotal() {
+                const superTicket = document.getElementById("superTicket");
+                var superTicketPrice = parseInt(superTicket.value) * 150;
+                const economyTicket = document.getElementById("economyTicket");
+                var economyTicketPrice = parseInt(economyTicket.value) * 100;
+                var subTotalPrice = superTicketPrice + economyTicketPrice;
+                document.getElementById("subTotalPrice").innerText = subTotalPrice;
+                document.getElementById("ConfirmSubTotal").innerText = subTotalPrice;
+                totalPriceWithVat(subTotalPrice);
+            }
+            // this method calculate total price with vat
+            function totalPriceWithVat(subTotalPrice) {
+                if (typeof subTotalPrice == 'number') {
+                    var vat = subTotalPrice * 10 / 100;
+                    document.getElementById("vat").innerText = vat;
+                    document.getElementById("confirmVat").innerText = vat;
+                    var TotalPrice = subTotalPrice + vat;
+                    document.getElementById("totalPrice").innerText = TotalPrice;
+                    document.getElementById("confirmPriceShow").innerText = TotalPrice;
+                }
+            }
+            // confirm message show when user will click book now button
+            document.getElementById('bookNow').addEventListener("click", function () {
+                document.getElementById("bookig_flights").style.display = 'none';
+                document.getElementById("confirm_massage").style.display = 'block';
+            });
+// Thank
 </script>
 </body>
 </html>
