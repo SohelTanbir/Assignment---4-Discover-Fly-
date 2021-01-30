@@ -51,7 +51,7 @@
             <div class="input-group f-class">
                 <div>
                     <label for="">First Class ($150)</label>
-                    <input class="inp-style inp-width" type="number" name="">
+                    <input id="superTicket" class="inp-style inp-width" type="number" value="0">
                 </div>
                 <div class="plus-minus-btn">
                     <p><span id="plusBtn1">+</span>  <span id="minusBtn1">-</span></p>
@@ -61,7 +61,7 @@
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy ($100)</label>
-                    <input class="inp-style inp-width" type="number" name="">
+                    <input id="economyTicket" class="inp-style inp-width" type="number" value="0">
                 </div>
                 <div class="plus-minus-btn">
                     <p> <span id="plusBtn2">+</span> <span id="minusBtn2">-</span> </p>
@@ -73,7 +73,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p>$500</p>
+                        <p>$<span id="subTotalPrice">00</span></p>
                     </div>
                 </div>
 
@@ -82,7 +82,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p>$50</p>
+                        <p>$<span id="vat">00</span></p>
                     </div>
                 </div>
                 <hr>
@@ -91,7 +91,7 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p>$550</p>
+                        <p>$<span id="totalPrice">00</span></p>
                     </div>
                 </div>
             </div>
@@ -104,7 +104,75 @@
         </div>
     </section>
 
-    <!--Thank You-->
-</body>
 
+<!--Javascript Coding-->
+<script>
+    document.getElementById("plusBtn1").addEventListener("click", function(){
+        const superTicket = document.getElementById("superTicket").value;
+        var superTicketCount = parseInt(superTicket);
+        superTicketCount++;
+        document.getElementById("superTicket").value = superTicketCount;
+        calculateSubTotal();
+        totalPriceWithVat();
+    });
+    document.getElementById("minusBtn1").addEventListener("click", function(){
+        const superTicket = document.getElementById("superTicket").value;
+        var superTicketCount = parseInt(superTicket);
+        if(superTicketCount > 0){
+            superTicketCount--;
+            document.getElementById("superTicket").value = superTicketCount;
+        }
+        calculateSubTotal();
+        totalPriceWithVat();
+    });
+
+    document.getElementById("plusBtn2").addEventListener("click", function(){
+        const economyTicket = document.getElementById("economyTicket").value;
+        var economyTicketCount = parseInt(economyTicket);
+            economyTicketCount++;
+            document.getElementById("economyTicket").value = economyTicketCount;
+            calculateSubTotal();
+            totalPriceWithVat();
+    })
+    document.getElementById("minusBtn2").addEventListener("click", function(){
+        const economyTicket = document.getElementById("economyTicket").value;
+        var economyTicketCount = parseInt(economyTicket);
+        if(economyTicketCount > 0){
+            economyTicketCount--;
+            document.getElementById("economyTicket").value = economyTicketCount;
+        }
+        calculateSubTotal();
+        totalPriceWithVat();
+    });
+
+    function calculateSubTotal(){
+        const superTicket = document.getElementById("superTicket").value;
+        var superTicketCount = parseInt(superTicket);
+        var superTicketPrice = superTicketCount * 150;
+
+        const economyTicket = document.getElementById("economyTicket").value;
+        var economyTicketCount = parseInt(economyTicket);
+        var economyTicketPrice = economyTicketCount * 100;
+        var subTotalPrice = superTicketPrice + economyTicketPrice;
+        document.getElementById("subTotalPrice").innerText = subTotalPrice;
+
+    }
+
+    function totalPriceWithVat(){
+        const superTicket = document.getElementById("superTicket").value;
+        var superTicketCount = parseInt(superTicket);
+        var superTicketPrice = superTicketCount * 150;
+
+        const economyTicket = document.getElementById("economyTicket").value;
+        var economyTicketCount = parseInt(economyTicket);
+        var economyTicketPrice = economyTicketCount * 100;
+        var subTotalPrice = superTicketPrice + economyTicketPrice;
+        var vat = subTotalPrice * 10 /100;
+        document.getElementById("vat").innerText = vat;
+        var TotalPrice = superTicketPrice + economyTicketPrice + vat;
+        document.getElementById("totalPrice").innerText = TotalPrice;
+    }
+
+</script>
+</body>
 </html>
